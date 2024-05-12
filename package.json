@@ -8,10 +8,6 @@
 	"dependencies": {
 	},
 	"_upm": {
-	    "gameService": {
-	      "groupIndex": 4,
-	      "groupName": "Monetization"
-	    },
 	    "supportedPlatforms": [
 	      "iOS"
 	    ]
