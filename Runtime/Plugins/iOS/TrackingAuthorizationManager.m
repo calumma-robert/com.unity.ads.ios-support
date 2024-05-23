@@ -45,6 +45,15 @@
     }
     
     id handler = ^(NSUInteger result) {
+        //if result is 0 or 2, but trackingAuthorizationStatus is not determined, it means the user has not been prompted yet
+        if ((result == 0 || result == 2) && [self getTrackingAuthorizationStatus] == 0) {
+            NSLog(@"[TrackingAuthorizationManager] User has not been prompted (BUG)");
+            [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+                [self trackingAuthorizationRequest:completion];
+            }];
+            return;
+        }
+        
         NSLog(@"Result request tracking authorization : %lu", (unsigned long)result);
         if (completion != nil) {
             completion(result);
